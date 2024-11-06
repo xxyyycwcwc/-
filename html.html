@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head>  
 <meta charset="UTF-8">
-<title>汉字复制示例</title>
-<style>
-    .row {
+<title>祝福语24/11/6</title>
+<style>  
+    .row {  
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 5px;
     }
-    .text {
+    .text {  
         cursor: pointer;
         flex-grow: 1;
     }
-    .number {
+    .number {  
         font-weight: bold;
         margin-right: 10px;
     }
-    .copy-button {
+    .copy-button {  
         margin-left: 10px;
     }
-    .copy-button.copied {
-        background-color: rgb(239, 0, 0);
-        color: rgb(0, 0, 0);
+    .copy-button.copied {  
+        background-color: green;
+        color: white;
     }
 </style>
 <script>
 async function copyText(text, button, number) {
     try {
         await navigator.clipboard.writeText(text);
-        button.textContent = `已复制 ${number}`;
+        button.textContent = '已复制';
         button.classList.add('copied');
+        setTimeout(() => {
+            button.textContent = '复制';
+            button.classList.remove('copied');
+        }, 2000); // 2秒后恢复按钮状态
     } catch (err) {
         console.error('复制失败:', err);
     }
@@ -40,7 +44,7 @@ async function copyText(text, button, number) {
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('content');
     const texts = [
-        "八面威风",
+       "八面威风",
         "八方来财",
         "八仙送福",
         "八珍玉食",
@@ -117,32 +121,32 @@ document.addEventListener('DOMContentLoaded', function() {
         "根本停不下来",
         "给主角换装使我上头",
         "我培养了无敌赵云",
-        "一枪穿云瞬间击溃对手",
-        "你的赵云敢不敢跟我的吕布试试",
-        "来啊我们有机会单挑",
-        "比起单打独斗我还是更喜欢组阵容",
-        "强力配队都分享一下",
-        "好小子你还要藏一手",
-        "这游戏算是让你玩明白了",
-        "都让开我的军师才是无敌",
-        "给大佬让路",
-        "玩了这么久蜀国想转魏国重新玩",
-        "兄弟听我的玩吴国阵容",
-        "玩哪个都行我要小桃",
-        "我是为了小乔才玩这游戏的",
-        "希望小乔能一直陪我走下去",
-        "大叔才是最帅的",
-        "曹操最强霸主",
-        "何时能与我青梅煮酒论英雄",
-        "天下英雄唯使君与操耳",
-        "三国题材怎么玩都不腻",
-        "放三2再战八年",
-        "八周年再接再厉",
-        "八周年我要变强",
+        "一枪穿云瞬间击溃对手",    
+        "你的赵云敢不敢跟我的吕布试试",  
+        "来啊我们有机会单挑",  
+        "比起单打独斗我还是更喜欢组阵容",  
+        "强力配队都分享一下",  
+        "好小子你还要藏一手",  
+        "这游戏算是让你玩明白了",  
+        "都让开我的军师才是无敌",  
+        "给大佬让路",  
+        "玩了这么久蜀国想转魏国重新玩",  
+        "兄弟听我的玩吴国阵容",  
+        "玩哪个都行我要小桃",  
+        "我是为了小乔才玩这游戏的",  
+        "希望小乔能一直陪我走下去",  
+        "大叔才是最帅的",  
+        "曹操最强霸主",  
+        "何时能与我青梅煮酒论英雄",    
+        "天下英雄唯使君与操耳",    
+        "三国题材怎么玩都不腻",    
+        "放三2再战八年",    
+        "八周年再接再厉",    
+        "八周年我要变强",    
         "八周年生日快乐"
-    ];
+    ];  
 
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 51; i <= 100; i++) {
         const row = document.createElement('div');
         row.className = 'row';
         
@@ -152,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const text = document.createElement('span');
         text.className = 'text';
-        text.textContent = texts[i - 1]; 
+        text.textContent = texts[i - 51]; // 从第51行开始
         text.onclick = () => copyText(text.textContent, button, number.textContent);
 
         const button = document.createElement('button');
