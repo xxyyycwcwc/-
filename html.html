@@ -2,12 +2,20 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>祝福语24/11/06</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zfy24/11/06</title>
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 10px;
+    }
     .row {
         display: flex;
         align-items: center;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
+        font-size: 30px; /* 默认字体大小 */
     }
     .number {
         font-weight: bold;
@@ -41,23 +49,23 @@
     /* 响应式设计 */
     @media (max-width: 600px) {
         .row {
-            font-size: 18px; /* 增大字体大小 */
+            font-size: 30px; /* 手机上的字体大小 */
         }
         .number {
-            margin-right: 20px; /* 增大间距 */
+            margin-right: 10px; /* 增大间距 */
         }
         .text {
-            margin-right: 20px; /* 增大间距 */
+            margin-right: 10px; /* 增大间距 */
         }
     }
 </style>
 <script>
-let currentFontSize = 50; // 默认字体大小
+let currentFontSize = 30; // 默认字体大小
 let currentCopiedRow = null;
 
 function adjustFontSize(increase) {
     currentFontSize += increase;
-    currentFontSize = Math.max(10, Math.min(currentFontSize, 100)); // 限制字体大小在12到30之间
+    currentFontSize = Math.max(12, Math.min(currentFontSize, 100)); // 限制字体大小在12到30之间
     document.querySelectorAll('.row').forEach(row => {
         row.style.fontSize = `${currentFontSize}px`;
     });
