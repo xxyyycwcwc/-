@@ -9,31 +9,82 @@
         align-items: center;
         margin-bottom: 5px;
     }
-    .text {
-        cursor: pointer;
-        flex-grow: 1;
-    }
     .number {
         font-weight: bold;
         margin-right: 5px;
     }
+    .text {
+        cursor: pointer;
+        flex-grow: 1;
+        margin-right: 5px; /* 调整间距 */
+    }
     .copy-button {
-        margin-left: 5px;
+        margin-left: 0; /* 移除左边距 */
     }
     .copy-button.copied {
         background-color: green;
         color: white;
     }
+    .text.copied {
+        color: green;
+    }
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .control-button {
+        padding: 5px 10px;
+        margin-right: 5px;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 600px) {
+        .row {
+            font-size: 18px; /* 增大字体大小 */
+        }
+        .number {
+            margin-right: 10px; /* 增大间距 */
+        }
+        .text {
+            margin-right: 10px; /* 增大间距 */
+        }
+    }
 </style>
 <script>
-async function copyText(text, button, number) {
+let currentFontSize = 16; // 默认字体大小
+let currentCopiedRow = null;
+
+function adjustFontSize(increase) {
+    currentFontSize += increase;
+    currentFontSize = Math.max(12, Math.min(currentFontSize, 30)); // 限制字体大小在12到30之间
+    document.querySelectorAll('.row').forEach(row => {
+        row.style.fontSize = `${currentFontSize}px`;
+    });
+}
+
+async function copyText(textElement, button, number) {
     try {
-        await navigator.clipboard.writeText(text);
-        button.textContent = `已复制第 ${number}`;
+        await navigator.clipboard.writeText(textElement.textContent);
+        button.textContent = `已复制 ${number}`;
         button.classList.add('copied');
+        textElement.classList.add('copied');
+
+        if (currentCopiedRow) {
+            const prevButton = currentCopiedRow.querySelector('.copy-button');
+            const prevText = currentCopiedRow.querySelector('.text');
+            prevButton.textContent = `复制 ${prevText.parentNode.querySelector('.number').textContent}`;
+            prevButton.classList.remove('copied');
+            prevText.classList.remove('copied');
+        }
+
+        currentCopiedRow = textElement.closest('.row');
+
         setTimeout(() => {
-            button.textContent = '复制';
+            button.textContent = `复制 ${number}`;
             button.classList.remove('copied');
+            textElement.classList.remove('copied');
+            currentCopiedRow = null;
         }, 2000);
     } catch (err) {
         console.error('复制失败:', err);
@@ -145,6 +196,25 @@ document.addEventListener('DOMContentLoaded', function() {
         "八周年生日快乐"
     ];
 
+    // 创建控制按钮
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+
+    const increaseButton = document.createElement('button');
+    increaseButton.className = 'control-button';
+    increaseButton.textContent = '放大字体';
+    increaseButton.onclick = () => adjustFontSize(2);
+
+    const decreaseButton = document.createElement('button');
+    decreaseButton.className = 'control-button';
+    decreaseButton.textContent = '缩小字体';
+    decreaseButton.onclick = () => adjustFontSize(-2);
+
+    controls.appendChild(increaseButton);
+    controls.appendChild(decreaseButton);
+
+    container.appendChild(controls);
+
     for (let i = 1; i <= 100; i++) {
         const row = document.createElement('div');
         row.className = 'row';
@@ -156,12 +226,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const text = document.createElement('span');
         text.className = 'text';
         text.textContent = texts[i - 1]; // 从第1行开始
-        text.onclick = () => copyText(text.textContent, button, number.textContent);
+        text.onclick = () => copyText(text, button, number.textContent);
 
         const button = document.createElement('button');
         button.className = 'copy-button';
-        button.textContent = '复制';
-        button.onclick = () => copyText(text.textContent, button, number.textContent);
+        button.textContent = `复制 ${number.textContent}`;
+        button.onclick = () => copyText(text, button, number.textContent);
         
         row.appendChild(number);
         row.appendChild(text);
