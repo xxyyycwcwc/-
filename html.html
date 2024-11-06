@@ -44,20 +44,20 @@
             font-size: 18px; /* 增大字体大小 */
         }
         .number {
-            margin-right: 10px; /* 增大间距 */
+            margin-right: 20px; /* 增大间距 */
         }
         .text {
-            margin-right: 10px; /* 增大间距 */
+            margin-right: 20px; /* 增大间距 */
         }
     }
 </style>
 <script>
-let currentFontSize = 30; // 默认字体大小
+let currentFontSize = 50; // 默认字体大小
 let currentCopiedRow = null;
 
 function adjustFontSize(increase) {
     currentFontSize += increase;
-    currentFontSize = Math.max(12, Math.min(currentFontSize, 100)); // 限制字体大小在12到30之间
+    currentFontSize = Math.max(10, Math.min(currentFontSize, 100)); // 限制字体大小在12到30之间
     document.querySelectorAll('.row').forEach(row => {
         row.style.fontSize = `${currentFontSize}px`;
     });
