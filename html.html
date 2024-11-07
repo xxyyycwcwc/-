@@ -26,8 +26,18 @@
         flex-grow: 1;
         margin-right: 5px; /* 调整间距 */
     }
+    .buttons-container {
+        display: flex;
+        align-items: center;
+    }
     .copy-button {
         margin-left: 0; /* 移除左边距 */
+        padding: 5px 10px;
+        font-size: inherit; /* 继承父元素字体大小 */
+        line-height: 1; /* 确保按钮内的文本垂直居中 */
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease; /* 平滑过渡效果 */
     }
     .copy-button.copied {
         background-color: green;
@@ -35,6 +45,21 @@
     }
     .text.copied {
         color: green;
+    }
+    .mark-button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        font-size: inherit; /* 继承父元素字体大小 */
+        line-height: 1; /* 确保按钮内的文本垂直居中 */
+        background-color: #f0f0f0;
+        color: #000;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease; /* 平滑过渡效果 */
+    }
+    .mark-button.marked {
+        background-color: rgba(0, 255, 8, 0.621);
+        color: white;
     }
     .controls {
         display: flex;
@@ -45,19 +70,6 @@
         padding: 5px 10px;
         margin-right: 5px;
     }
-    .mark-button {
-        margin-left: 5px;
-        padding: 5px 10px;
-        background-color: #f0f0f0;
-        color: #000;
-        border: none;
-        cursor: pointer;
-    }
-    .mark-button.marked {
-        background-color: rgba(0, 255, 8, 0.621);
-        color: white;
-    }
-
     /* 响应式设计 */
     @media (max-width: 600px) {
         .row {
@@ -101,11 +113,13 @@ async function copyText(textElement, button, number) {
         currentCopiedRow = textElement.closest('.row');
 
         setTimeout(() => {
-            button.textContent = `复制 ${number}`;
-            button.classList.remove('copied');
-            textElement.classList.remove('copied');
-            currentCopiedRow = null;
-        }, 2000);
+            if (currentCopiedRow === textElement.closest('.row')) {
+                button.textContent = `复制 ${number}`;
+                button.classList.remove('copied');
+                textElement.classList.remove('copied');
+                currentCopiedRow = null;
+            }
+        }, 5000);
     } catch (err) {
         console.error('复制失败:', err);
     }
@@ -252,6 +266,9 @@ document.addEventListener('DOMContentLoaded', function() {
         text.textContent = texts[i - 1]; // 从第1行开始
         text.onclick = () => copyText(text, button, number.textContent);
 
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'buttons-container';
+
         const button = document.createElement('button');
         button.className = 'copy-button';
         button.textContent = `复制 ${number.textContent}`;
@@ -262,10 +279,12 @@ document.addEventListener('DOMContentLoaded', function() {
         markButton.innerHTML = '<i class="flag-icon">🚩</i>'; // 使用小旗子图标
         markButton.onclick = () => markRow(markButton);
         
+        buttonsContainer.appendChild(button);
+        buttonsContainer.appendChild(markButton);
+
         row.appendChild(number);
         row.appendChild(text);
-        row.appendChild(button);
-        row.appendChild(markButton);
+        row.appendChild(buttonsContainer);
         
         container.appendChild(row);
     }
