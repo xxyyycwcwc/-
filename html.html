@@ -45,6 +45,18 @@
         padding: 5px 10px;
         margin-right: 5px;
     }
+    .mark-button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        background-color: #f0f0f0;
+        color: #000;
+        border: none;
+        cursor: pointer;
+    }
+    .mark-button.marked {
+        background-color: rgba(0, 255, 8, 0.621);
+        color: white;
+    }
 
     /* 响应式设计 */
     @media (max-width: 600px) {
@@ -65,7 +77,7 @@ let currentCopiedRow = null;
 
 function adjustFontSize(increase) {
     currentFontSize += increase;
-    currentFontSize = Math.max(12, Math.min(currentFontSize, 100)); // 限制字体大小在12到30之间
+    currentFontSize = Math.max(12, Math.min(currentFontSize, 100)); // 限制字体大小在12到100之间
     document.querySelectorAll('.row').forEach(row => {
         row.style.fontSize = `${currentFontSize}px`;
     });
@@ -97,6 +109,10 @@ async function copyText(textElement, button, number) {
     } catch (err) {
         console.error('复制失败:', err);
     }
+}
+
+function markRow(button) {
+    button.classList.toggle('marked');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -164,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "期待下一个八年",
         "感谢放三2让我们在这里相遇",
         "兄弟们我真的玩了八年",
-        "楼上我看你眼熟",
+        "楼上我看你面熟",
         "我们似乎七年前见过",
         "我真的很喜欢我们军团的气氛",
         "回到军团就像回到家一样",
@@ -240,10 +256,16 @@ document.addEventListener('DOMContentLoaded', function() {
         button.className = 'copy-button';
         button.textContent = `复制 ${number.textContent}`;
         button.onclick = () => copyText(text, button, number.textContent);
+
+        const markButton = document.createElement('button');
+        markButton.className = 'mark-button';
+        markButton.innerHTML = '<i class="flag-icon">🚩</i>'; // 使用小旗子图标
+        markButton.onclick = () => markRow(markButton);
         
         row.appendChild(number);
         row.appendChild(text);
         row.appendChild(button);
+        row.appendChild(markButton);
         
         container.appendChild(row);
     }
