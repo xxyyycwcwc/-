@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>兴趣调查</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+.question {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+.option {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.option:hover {
+    background-color: #f0f0f0;
+}
+.correct {
+    background-color: #94d7a2;
+}
+.wrong {
+    background-color: #e6a2a1;
+}
+</style>
+<script>
+function checkAnswer(answer) {
+    var options = document.getElementsByClassName('option');
+    for (var i = 0; i < options.length; i++) {
+        options[i].classList.remove('correct', 'wrong');
+    }
+    if (answer === 'B') {
+        document.getElementById('option-B').classList.add('correct');
+    } else {
+        document.getElementById('option-' + answer).classList.add('wrong');
+        document.getElementById('option-B').classList.add('correct');
+    }
+}
+</script>
+</head>
+<body>
+
+<h1 class="question">曹老板最爱干什么？</h1>
+
+<div id="option-A" class="option" onclick="checkAnswer('A')">A. 学习</div>
+<div id="option-B" class="option" onclick="checkAnswer('B')">B. 打胶</div>
+<div id="option-C" class="option" onclick="checkAnswer('C')">C. 睡觉</div>
+<div id="option-D" class="option" onclick="checkAnswer('D')">D. 打游戏</div>
+
+</body>
+</html>
