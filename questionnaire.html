@@ -1,240 +1,146 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在线测试</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
-    }
-    h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    .question {
-        margin-bottom: 20px;
-    }
-    .options label {
-        display: block;
-        margin: 5px 0;
-    }
-    .nav-btns button {
-        margin: 5px;
-        padding: 10px 20px;
-        font-size: 18px;
-    }
-    @media (max-width: 768px) {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胶王争霸赛</title>
+    <style>
         body {
-            font-size: 16px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
         }
-        h1 {
-            font-size: 20px;
+
+        .question {
+            display: none;
+            margin-bottom: 20px;
         }
-        .nav-btns button {
-            padding: 8px 16px;
-            font-size: 16px;
+
+        .options {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 对齐选择框 */
+            width: 100%;
         }
-    }
-</style>
+
+        .option {
+            margin: 5px 0;
+        }
+
+        .active {
+            display: block;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: rgb(0, 255, 179); /* 设置勾选蓝点的颜色 */
+        }
+    </style>
 </head>
 <body>
-<h1>在线测试</h1>
+    <h1>问卷调查</h1>
 
-<form id="quizForm">
-    <div class="question" id="q1">
-        <p>1. 哪种语言是编程语言？</p>
+    <div id="question1" class="question active">
+        <p>1. 你喜欢打胶吗？</p>
         <div class="options">
-            <label><input type="radio" name="q1" value="A"> A. 中文</label>
-            <label><input type="radio" name="q1" value="B"> B. 英语</label>
-            <label><input type="radio" name="q1" value="C"> C. Python</label>
-            <label><input type="radio" name="q1" value="D"> D. 日语</label>
+            <div class="option">
+                <input type="radio" name="q1" onclick="showMessage('你真是个诚实的孩子！', 'question2', this)">
+                <label>喜欢</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q1" onclick="showMessage('请诚实答题，不要说谎！', 'error1', this)">
+                <label>不喜欢</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q1" onclick="showMessage('你真是个诚实的孩子！', 'question2', this)">
+                <label>超级喜欢</label>
+            </div>
         </div>
     </div>
 
-    <div class="question" id="q2" style="display:none;">
-        <p>2. 以下哪个是操作系统？</p>
+    <div id="question2" class="question">
+        <p>2. 你每天要打多少胶？</p>
         <div class="options">
-            <label><input type="radio" name="q2" value="A"> A. Windows</label>
-            <label><input type="radio" name="q2" value="B"> B. Linux</label>
-            <label><input type="radio" name="q2" value="C"> C. macOS</label>
-            <label><input type="radio" name="q2" value="D"> D. Android</label>
+            <div class="option">
+                <input type="radio" name="q2" onclick="showMessage('打得少了！', 'question3', this)">
+                <label>3-5次</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q2" onclick="showMessage('打得挺多！', 'question3', this)">
+                <label>10次起步</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q2" onclick="showMessage('胶王nb！', 'question3', this)">
+                <label>500ml+</label>
+            </div>
         </div>
     </div>
 
-    <div class="question" id="q3" style="display:none;">
-        <p>3. 以下哪种数据库是关系型数据库？</p>
+    <div id="question3" class="question">
+        <p>3. 你喜欢在什么时间段打胶？（可多选）</p>
         <div class="options">
-            <label><input type="radio" name="q3" value="A"> A. MongoDB</label>
-            <label><input type="radio" name="q3" value="B"> B. MySQL</label>
-            <label><input type="radio" name="q3" value="C"> C. Redis</label>
-            <label><input type="radio" name="q3" value="D"> D. Cassandra</label>
+            <div class="option">
+                <input type="checkbox" name="t1" onclick="handleCheckboxSelection(this)">
+                <label>起床前</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" name="t1" onclick="handleCheckboxSelection(this)">
+                <label>午睡时</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" name="t1" onclick="handleCheckboxSelection(this)">
+                <label>洗澡时</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" name="t1" onclick="handleCheckboxSelection(this)">
+                <label>睡觉前</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" name="t1" onclick="handleCheckboxSelection(this)">
+                <label>上课时</label>
+            </div>
         </div>
+        <button onclick="submitCheckboxSelection()">参与胶王争霸</button>
     </div>
 
-    <div class="question" id="q4" style="display:none;">
-        <p>4. 以下哪种语言是脚本语言？</p>
-        <div class="options">
-            <label><input type="radio" name="q4" value="A"> A. Java</label>
-            <label><input type="radio" name="q4" value="B"> B. JavaScript</label>
-            <label><input type="radio" name="q4" value="C"> C. C++</label>
-            <label><input type="radio" name="q4" value="D"> D. Swift</label>
-        </div>
-    </div>
+    <script>
+        function showMessage(message, nextQuestionId, selectedOption) {
+            alert(message);
 
-    <div class="question" id="q5" style="display:none;">
-        <p>5. 以下哪个框架是用于前端开发的？</p>
-        <div class="options">
-            <label><input type="radio" name="q5" value="A"> A. Django</label>
-            <label><input type="radio" name="q5" value="B"> B. React</label>
-            <label><input type="radio" name="q5" value="C"> C. Flask</label>
-            <label><input type="radio" name="q5" value="D"> D. Spring</label>
-        </div>
-    </div>
+            if (nextQuestionId.startsWith('error')) {
+                // 用户选择错误，重新显示当前问题
+                document.querySelector('.active').classList.remove('active');
+                document.getElementById(nextQuestionId.replace('error', 'question')).classList.add('active');
+            } else if (nextQuestionId !== 'end') {
+                // 用户选择正确，显示下一个问题
+                document.getElementById(nextQuestionId).classList.add('active');
+                document.querySelector('.active').classList.remove('active');
+            } else {
+                // 结束问卷
+                document.querySelector('.active').classList.remove('active');
+                alert('再见！');
+            }
 
-    <div class="question" id="q6" style="display:none;">
-        <p>6. 请选择你认为正确的前端技术。（必须选择C. CSS）</p>
-        <div class="options">
-            <label><input type="checkbox" name="q6" value="A"> A. Java</label>
-            <label><input type="checkbox" name="q6" value="B"> B. JavaScript</label>
-            <label><input type="checkbox" name="q6" value="C" checked> C. CSS</label>
-            <label><input type="checkbox" name="q6" value="D"> D. HTML</label>
-        </div>
-    </div>
-
-    <div class="question" id="q7" style="display:none;">
-        <p>7. 请选择你认为正确的后端技术。</p>
-        <div class="options">
-            <label><input type="checkbox" name="q7" value="A"> A. Node.js</label>
-            <label><input type="checkbox" name="q7" value="B"> B. Django</label>
-            <label><input type="checkbox" name="q7" value="C"> C. Ruby on Rails</label>
-            <label><input type="checkbox" name="q7" value="D"> D. Laravel</label>
-        </div>
-    </div>
-
-    <div class="question" id="q8" style="display:none;">
-        <p>8. 请选择你认为正确的数据库技术。</p>
-        <div class="options">
-            <label><input type="checkbox" name="q8" value="A"> A. MySQL</label>
-            <label><input type="checkbox" name="q8" value="B"> B. PostgreSQL</label>
-            <label><input type="checkbox" name="q8" value="C"> C. MongoDB</label>
-            <label><input type="checkbox" name="q8" value="D"> D. SQLite</label>
-        </div>
-    </div>
-
-    <div class="question" id="q9" style="display:none;">
-        <p>9. 请选择你认为正确的云计算服务提供商。</p>
-        <div class="options">
-            <label><input type="checkbox" name="q9" value="A"> A. AWS</label>
-            <label><input type="checkbox" name="q9" value="B"> B. Azure</label>
-            <label><input type="checkbox" name="q9" value="C"> C. Google Cloud</label>
-            <label><input type="checkbox" name="q9" value="D"> D. Alibaba Cloud</label>
-        </div>
-    </div>
-
-    <div class="question" id="q10" style="display:none;">
-        <p>10. 请选择你认为正确的容器化技术。</p>
-        <div class="options">
-            <label><input type="checkbox" name="q10" value="A"> A. Docker</label>
-            <label><input type="checkbox" name="q10" value="B"> B. Kubernetes</label>
-            <label><input type="checkbox" name="q10" value="C"> C. Vagrant</label>
-            <label><input type="checkbox" name="q10" value="D"> D. LXC</label>
-        </div>
-    </div>
-
-    <div class="nav-btns">
-        <button type="button" onclick="prevQuestion()">上一题</button>
-        <button type="button" onclick="nextQuestion()">下一题</button>
-        <button type="button" onclick="submitQuiz()">提交</button>
-    </div>
-</form>
-
-<script>
-var currentQuestion = 1;
-const correctAnswers = {
-    q1: "C",
-    q2: "A",
-    q3: "B",
-    q4: "B",
-    q5: "B",
-    q6: ["B", "C", "D"],
-    q7: ["A", "B", "C", "D"],
-    q8: ["A", "B", "C", "D"],
-    q9: ["A", "B", "C", "D"],
-    q10: ["A", "B"]
-};
-
-function nextQuestion() {
-    if (currentQuestion === 6) {
-        var cssCheckbox = document.querySelector('input[name="q6"][value="C"]');
-        if (!cssCheckbox.checked) {
-            alert("请诚实作答，不要撒谎。");
-            cssCheckbox.checked = true;
-            return;
+            // 设置已选择的选项为选中状态
+            selectedOption.checked = true;
         }
-    }
 
-    if (checkAnswer(currentQuestion)) {
-        document.getElementById('q' + currentQuestion).style.display = 'none';
-        currentQuestion++;
-        if (currentQuestion > 10) currentQuestion = 10; // 最后一题
-        document.getElementById('q' + currentQuestion).style.display = 'block';
-    }
-}
-
-function prevQuestion() {
-    document.getElementById('q' + currentQuestion).style.display = 'none';
-    currentQuestion--;
-    if (currentQuestion < 1) currentQuestion = 1; // 第一题
-    document.getElementById('q' + currentQuestion).style.display = 'block';
-}
-
-function checkAnswer(questionNumber) {
-    const questionId = 'q' + questionNumber;
-    const answerType = document.querySelector(`#${questionId} input[type="radio"]`) ? 'radio' : 'checkbox';
-    const selectedValues = Array.from(document.querySelectorAll(`#${questionId} input[type="${answerType}"]:checked`)).map(input => input.value);
-
-    if (Array.isArray(correctAnswers[questionId])) {
-        if (!correctAnswers[questionId].every(answer => selectedValues.includes(answer))) {
-            alert("请诚实作答，不要撒谎。");
-            return false;
+        function handleCheckboxSelection(checkbox) {
+            // 不需要显式地设置 checkbox.checked，浏览器会自动处理
         }
-    } else {
-        if (selectedValues[0] !== correctAnswers[questionId]) {
-            alert("请诚实作答，不要撒谎。");
-            return false;
+
+        function submitCheckboxSelection() {
+            const checkboxes = document.querySelectorAll('input[name="t1"]:checked');
+            const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.nextElementSibling.textContent);
+            if (selectedTimes.length > 0) {
+                const message = `你选择了以下时间段：${selectedTimes.join(', ')}`;
+                alert(message);
+                document.getElementById('question3').classList.remove('active');
+                alert('你就是胶王！');
+            } else {
+                alert('请选择至少一个时间段！');
+            }
         }
-    }
-    return true;
-}
-
-function submitQuiz() {
-    if (currentQuestion < 10) {
-        alert("请完成所有题目后再提交。");
-        return;
-    }
-
-    let allCorrect = true;
-    for (let i = 1; i <= 10; i++) {
-        if (!checkAnswer(i)) {
-            allCorrect = false;
-            break;
-        }
-    }
-
-    if (allCorrect) {
-        alert("提交成功！");
-    } else {
-        alert("请诚实作答，不要撒谎。");
-    }
-}
-
-// 初始化显示第一题
-document.getElementById('q1').style.display = 'block';
-</script>
+    </script>
 </body>
 </html>
