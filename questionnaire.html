@@ -2,73 +2,185 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>兴趣爱好调查</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线测试</title>
 <style>
-    .option {
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    display: block;
-    font-size: 28px; 
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
     }
-    button {
-    font-size: 50px; /* 修改字体大小为20px */
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
     }
-    .selected {
-        background-color: lightgreen;
+    .question {
+        margin-bottom: 20px;
+    }
+    .options label {
+        display: block;
+        margin: 5px 0;
+    }
+    .nav-btns button {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+    @media (max-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        .nav-btns button {
+            padding: 8px 16px;
+            font-size: 16px;
+        }
     }
 </style>
 </head>
 <body>
+<h1>在线测试</h1>
 
-<h1>兴趣爱好调查问卷</h1>
-<form id="interestForm">
-    <div class="option" data-value="1">打胶</div>
-    <div class="option" data-value="2">电影</div>
-    <div class="option" data-value="3">音乐</div>
-    <div class="option" data-value="4">运动</div>
-    <div class="option" data-value="5">绘画</div>
-    <div class="option" data-value="6">编程</div>
-    <div class="option" data-value="7">旅行</div>
-    <div class="option" data-value="8">摄影</div>
-    <div class="option" data-value="9">学习</div>
-    <div class="option" data-value="10">睡觉</div>
-    <button type="submit">提交</button>
+<form id="quizForm">
+    <div class="question" id="q1">
+        <p>1. 哪种语言是编程语言？</p>
+        <div class="options">
+            <label><input type="radio" name="q1" value="A"> A. 中文</label>
+            <label><input type="radio" name="q1" value="B"> B. 英语</label>
+            <label><input type="radio" name="q1" value="C"> C. Python</label>
+            <label><input type="radio" name="q1" value="D"> D. 日语</label>
+        </div>
+    </div>
+
+    <div class="question" id="q2" style="display:none;">
+        <p>2. 以下哪个是操作系统？</p>
+        <div class="options">
+            <label><input type="radio" name="q2" value="A"> A. Windows</label>
+            <label><input type="radio" name="q2" value="B"> B. Linux</label>
+            <label><input type="radio" name="q2" value="C"> C. macOS</label>
+            <label><input type="radio" name="q2" value="D"> D. Android</label>
+        </div>
+    </div>
+
+    <div class="question" id="q3" style="display:none;">
+        <p>3. 以下哪种数据库是关系型数据库？</p>
+        <div class="options">
+            <label><input type="radio" name="q3" value="A"> A. MongoDB</label>
+            <label><input type="radio" name="q3" value="B"> B. MySQL</label>
+            <label><input type="radio" name="q3" value="C"> C. Redis</label>
+            <label><input type="radio" name="q3" value="D"> D. Cassandra</label>
+        </div>
+    </div>
+
+    <div class="question" id="q4" style="display:none;">
+        <p>4. 以下哪种语言是脚本语言？</p>
+        <div class="options">
+            <label><input type="radio" name="q4" value="A"> A. Java</label>
+            <label><input type="radio" name="q4" value="B"> B. JavaScript</label>
+            <label><input type="radio" name="q4" value="C"> C. C++</label>
+            <label><input type="radio" name="q4" value="D"> D. Swift</label>
+        </div>
+    </div>
+
+    <div class="question" id="q5" style="display:none;">
+        <p>5. 以下哪个框架是用于前端开发的？</p>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> A. Django</label>
+            <label><input type="radio" name="q5" value="B"> B. React</label>
+            <label><input type="radio" name="q5" value="C"> C. Flask</label>
+            <label><input type="radio" name="q5" value="D"> D. Spring</label>
+        </div>
+    </div>
+
+    <div class="question" id="q6" style="display:none;">
+        <p>6. 请选择你认为正确的前端技术。（必须选择C. CSS）</p>
+        <div class="options">
+            <label><input type="checkbox" name="q6" value="A"> A. Java</label>
+            <label><input type="checkbox" name="q6" value="B"> B. JavaScript</label>
+            <label><input type="checkbox" name="q6" value="C" checked> C. CSS</label>
+            <label><input type="checkbox" name="q6" value="D"> D. HTML</label>
+        </div>
+    </div>
+
+    <div class="question" id="q7" style="display:none;">
+        <p>7. 请选择你认为正确的后端技术。</p>
+        <div class="options">
+            <label><input type="checkbox" name="q7" value="A"> A. Node.js</label>
+            <label><input type="checkbox" name="q7" value="B"> B. Django</label>
+            <label><input type="checkbox" name="q7" value="C"> C. Ruby on Rails</label>
+            <label><input type="checkbox" name="q7" value="D"> D. Laravel</label>
+        </div>
+    </div>
+
+    <div class="question" id="q8" style="display:none;">
+        <p>8. 请选择你认为正确的数据库技术。</p>
+        <div class="options">
+            <label><input type="checkbox" name="q8" value="A"> A. MySQL</label>
+            <label><input type="checkbox" name="q8" value="B"> B. PostgreSQL</label>
+            <label><input type="checkbox" name="q8" value="C"> C. MongoDB</label>
+            <label><input type="checkbox" name="q8" value="D"> D. SQLite</label>
+        </div>
+    </div>
+
+    <div class="question" id="q9" style="display:none;">
+        <p>9. 请选择你认为正确的云计算服务提供商。</p>
+        <div class="options">
+            <label><input type="checkbox" name="q9" value="A"> A. AWS</label>
+            <label><input type="checkbox" name="q9" value="B"> B. Azure</label>
+            <label><input type="checkbox" name="q9" value="C"> C. Google Cloud</label>
+            <label><input type="checkbox" name="q9" value="D"> D. Alibaba Cloud</label>
+        </div>
+    </div>
+
+    <div class="question" id="q10" style="display:none;">
+        <p>10. 请选择你认为正确的容器化技术。</p>
+        <div class="options">
+            <label><input type="checkbox" name="q10" value="A"> A. Docker</label>
+            <label><input type="checkbox" name="q10" value="B"> B. Kubernetes</label>
+            <label><input type="checkbox" name="q10" value="C"> C. Vagrant</label>
+            <label><input type="checkbox" name="q10" value="D"> D. LXC</label>
+        </div>
+    </div>
+
+    <div class="nav-btns">
+        <button type="button" onclick="prevQuestion()">上一题</button>
+        <button type="button" onclick="nextQuestion()">下一题</button>
+        <button type="submit">提交</button>
+    </div>
 </form>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var options = document.querySelectorAll('.option');
-    var form = document.getElementById('interestForm');
+var currentQuestion = 1;
 
-    // 添加点击事件处理程序
-    options.forEach(function(option) {
-        option.addEventListener('click', function() {
-            if (!this.classList.contains('selected')) {
-                this.classList.add('selected');
-            } else {
-                if (this.getAttribute('data-value') !== '1') {
-                    this.classList.remove('selected');
-                }
-            }
-        });
-    });
+function nextQuestion() {
+    if (currentQuestion === 6) {
+        var cssCheckbox = document.querySelector('input[name="q6"][value="C"]');
+        if (!cssCheckbox.checked) {
+            alert("请诚实作答，不要撒谎。");
+            cssCheckbox.checked = true;
+            return;
+        }
+    }
 
-    // 表单提交验证
-    form.addEventListener('submit', function(event) {
-        var firstOptionSelected = document.querySelector('.option[data-value="1"]').classList.contains('selected');
-        if (!firstOptionSelected) {
-            alert('请诚实作答，不要说谎');
-            event.preventDefault(); // 阻止表单提交
-        }
-        else
-        {
-            alert('你很诚实，表单已提交');
-        }
-    });
-});
+    document.getElementById('q' + currentQuestion).style.display = 'none';
+    currentQuestion++;
+    if (currentQuestion > 10) currentQuestion = 10; // 最后一题
+    document.getElementById('q' + currentQuestion).style.display = 'block';
+}
+
+function prevQuestion() {
+    document.getElementById('q' + currentQuestion).style.display = 'none';
+    currentQuestion--;
+    if (currentQuestion < 1) currentQuestion = 1; // 第一题
+    document.getElementById('q' + currentQuestion).style.display = 'block';
+}
+
+// 初始化显示第一题
+document.getElementById('q1').style.display = 'block';
 </script>
-
 </body>
 </html>
