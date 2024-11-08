@@ -2,57 +2,69 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>兴趣调查</title>
+<title>兴趣爱好调查</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
-}
-.question {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-.option {
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-.option:hover {
-    background-color: #f0f0f0;
-}
-.correct {
-    background-color: #94d7a2;
-}
-.wrong {
-    background-color: #e6a2a1;
-}
+    .option {
+        margin: 5px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        display: block;
+    }
+    .selected {
+        background-color: lightgreen;
+    }
 </style>
-<script>
-function checkAnswer(answer) {
-    var options = document.getElementsByClassName('option');
-    for (var i = 0; i < options.length; i++) {
-        options[i].classList.remove('correct', 'wrong');
-    }
-    if (answer === 'B') {
-        document.getElementById('option-B').classList.add('correct');
-    } else {
-        document.getElementById('option-' + answer).classList.add('wrong');
-        document.getElementById('option-B').classList.add('correct');
-    }
-}
-</script>
 </head>
 <body>
 
-<h1 class="question">曹老板最爱干什么？</h1>
+<h1>兴趣爱好调查问卷</h1>
+<form id="interestForm">
+    <div class="option" data-value="1">打胶</div>
+    <div class="option" data-value="2">电影</div>
+    <div class="option" data-value="3">音乐</div>
+    <div class="option" data-value="4">运动</div>
+    <div class="option" data-value="5">绘画</div>
+    <div class="option" data-value="6">编程</div>
+    <div class="option" data-value="7">旅行</div>
+    <div class="option" data-value="8">摄影</div>
+    <div class="option" data-value="9">学习</div>
+    <div class="option" data-value="10">睡觉</div>
+    <button type="submit">提交</button>
+</form>
 
-<div id="option-A" class="option" onclick="checkAnswer('A')">A. 学习</div>
-<div id="option-B" class="option" onclick="checkAnswer('B')">B. 打胶</div>
-<div id="option-C" class="option" onclick="checkAnswer('C')">C. 睡觉</div>
-<div id="option-D" class="option" onclick="checkAnswer('D')">D. 打游戏</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var options = document.querySelectorAll('.option');
+    var form = document.getElementById('interestForm');
+
+    // 添加点击事件处理程序
+    options.forEach(function(option) {
+        option.addEventListener('click', function() {
+            if (!this.classList.contains('selected')) {
+                this.classList.add('selected');
+            } else {
+                if (this.getAttribute('data-value') !== '1') {
+                    this.classList.remove('selected');
+                }
+            }
+        });
+    });
+
+    // 表单提交验证
+    form.addEventListener('submit', function(event) {
+        var firstOptionSelected = document.querySelector('.option[data-value="1"]').classList.contains('selected');
+        if (!firstOptionSelected) {
+            alert('请诚实作答，不要说谎');
+            event.preventDefault(); // 阻止表单提交
+        }
+        else
+        {
+            alert('你很诚实，表单已提交');
+        }
+    });
+});
+</script>
 
 </body>
 </html>
