@@ -149,12 +149,24 @@
     <div class="nav-btns">
         <button type="button" onclick="prevQuestion()">上一题</button>
         <button type="button" onclick="nextQuestion()">下一题</button>
-        <button type="submit">提交</button>
+        <button type="button" onclick="submitQuiz()">提交</button>
     </div>
 </form>
 
 <script>
 var currentQuestion = 1;
+const correctAnswers = {
+    q1: "C",
+    q2: "A",
+    q3: "B",
+    q4: "B",
+    q5: "B",
+    q6: ["B", "C", "D"],
+    q7: ["A", "B", "C", "D"],
+    q8: ["A", "B", "C", "D"],
+    q9: ["A", "B", "C", "D"],
+    q10: ["A", "B"]
+};
 
 function nextQuestion() {
     if (currentQuestion === 6) {
@@ -166,10 +178,12 @@ function nextQuestion() {
         }
     }
 
-    document.getElementById('q' + currentQuestion).style.display = 'none';
-    currentQuestion++;
-    if (currentQuestion > 10) currentQuestion = 10; // 最后一题
-    document.getElementById('q' + currentQuestion).style.display = 'block';
+    if (checkAnswer(currentQuestion)) {
+        document.getElementById('q' + currentQuestion).style.display = 'none';
+        currentQuestion++;
+        if (currentQuestion > 10) currentQuestion = 10; // 最后一题
+        document.getElementById('q' + currentQuestion).style.display = 'block';
+    }
 }
 
 function prevQuestion() {
@@ -177,6 +191,46 @@ function prevQuestion() {
     currentQuestion--;
     if (currentQuestion < 1) currentQuestion = 1; // 第一题
     document.getElementById('q' + currentQuestion).style.display = 'block';
+}
+
+function checkAnswer(questionNumber) {
+    const questionId = 'q' + questionNumber;
+    const answerType = document.querySelector(`#${questionId} input[type="radio"]`) ? 'radio' : 'checkbox';
+    const selectedValues = Array.from(document.querySelectorAll(`#${questionId} input[type="${answerType}"]:checked`)).map(input => input.value);
+
+    if (Array.isArray(correctAnswers[questionId])) {
+        if (!correctAnswers[questionId].every(answer => selectedValues.includes(answer))) {
+            alert("请诚实作答，不要撒谎。");
+            return false;
+        }
+    } else {
+        if (selectedValues[0] !== correctAnswers[questionId]) {
+            alert("请诚实作答，不要撒谎。");
+            return false;
+        }
+    }
+    return true;
+}
+
+function submitQuiz() {
+    if (currentQuestion < 10) {
+        alert("请完成所有题目后再提交。");
+        return;
+    }
+
+    let allCorrect = true;
+    for (let i = 1; i <= 10; i++) {
+        if (!checkAnswer(i)) {
+            allCorrect = false;
+            break;
+        }
+    }
+
+    if (allCorrect) {
+        alert("提交成功！");
+    } else {
+        alert("请诚实作答，不要撒谎。");
+    }
 }
 
 // 初始化显示第一题
